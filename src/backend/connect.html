@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            height: 100vh;
+            width: 100vw;
+            background-color: aquamarine;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body">
+    <h1>Connecting to database</h1>
+    <script>
+        const mongoose = require('mongoose');
+        
+        function connectDB() {
+            const password = 1234;
+            mongoose.connect('mongodb+srv://clayton-schneider:' + password + '@cluster0-s9wrr.mongodb.net/prototype?retryWrites=true&w=majority',
+                { useNewUrlParser: true }
+            );
+
+            const db = mongoose.connection;
+            let success;
+            db.on('error', err => {
+                console.log(err)
+                success = false
+            })
+            db.once('open', () => {
+                console.log('Successfully connected to db') 
+                return true
+            })
+            return success
+        }
+
+        connectDB()
+
+
+
+    </script>
+</body>
+</html>
